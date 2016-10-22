@@ -1,9 +1,7 @@
 # McGill Rocket Team - Avionics
----
 This is the code repository for the Avionics sub team on the McGill Rocket Team.
 
 ## Sensors
----
 Under the sensors folder, each sensor has it's own file. You are free to write the code for the sensor as you please. The only requirement is that you make a function available to produce the formatted string data from the sensors. The function will be called several times, in a polling fashion.
 
 ```C
@@ -26,7 +24,6 @@ The format string will have to store the data in CSV format like so
 **Note**: that `Time` should be the elapse time since arduino start up.
 
 ## Data Scripts
----
 The data collection scripts are to offload the data from the edison as quickly as possible.
 What the scripts have to do:
 1. Read the CSV files
@@ -35,5 +32,4 @@ What the scripts have to do:
 4. Find critical flight values such as the height the rocket passes Mach 1 at
 
 # CAD Models
----
 Create the CAD models using [this](https://drive.google.com/open?id=0BzpGM0km5hh2N3dQbWIySmU0RWs) as your reference design. You can look up the Intel Edison Arduino Breakout for the pins.
