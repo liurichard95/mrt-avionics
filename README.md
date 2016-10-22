@@ -2,7 +2,7 @@
 This is the code repository for the Avionics sub team on the McGill Rocket Team.
 
 ## Sensors
-Under the sensors folder, each sensor has it's own file. You are free to write the code for the sensor as you please. The only requirement is that you make a function available to produce the formatted string data from the sensors. The function will be called several times, in a polling fashion.
+Under the sensors folder, you'll find each sensor has it's own file. You are free to write the code for the sensor as you please and create any file you need. The only requirement is that you make a function available to produce the formatted string data from the sensors. The function will be called several times, in a polling fashion.
 
 ```C
 while(someTestCondition) {
@@ -21,7 +21,7 @@ The format string will have to store the data in CSV format like so
 | 1.50ms | 1820562        | 29             |
 | 2.00ms | 1250721        | 34             |
 
-**Note**: that `Time` should be the elapse time since arduino start up.
+**Note**: that `Time` should be the elapsed time since arduino start up.
 
 ## Data Scripts
 The data collection scripts are to offload the data from the edison as quickly as possible.
