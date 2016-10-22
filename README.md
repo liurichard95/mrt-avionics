@@ -31,5 +31,5 @@ What the scripts have to do:
 3. Create annotated graphs to analyze the data
 4. Find critical flight values such as the height the rocket passes Mach 1 at
 
-# CAD Models
+## CAD Models
 Create the CAD models using [this](https://drive.google.com/open?id=0BzpGM0km5hh2N3dQbWIySmU0RWs) as your reference design. You can look up the Intel Edison Arduino Breakout for the pins.
