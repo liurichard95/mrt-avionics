@@ -19,18 +19,26 @@
 /* --- includes --- */
 #include <stdio.h>
 #include <stdlib.h>
-#include <Adafruit_GPS.h>
+#include <TinyGPS++.h>
+#include <SoftwareSerial.h>
 
-// ensures backwards compatibility with older Arduino IDEs
-#if ARDUINO >= 100
- #include <SoftwareSerial.h>
-#endif
+/* --- init variables --- */
+
+static const int RXPin = 4, TXPin = 3;
+static const uint32_t GPSBaud = 9600;
+
+// The TinyGPS++ object
+TinyGPSPlus gps;
+
+// The serial connection to the GPS device
+SoftwareSerial ss(RXPin, TXPin);
+
 
 typedef struct data {
 	char * latitude; 
 	char * longitude;
 	char * altitude;
-} GPS;
+} GPSData;
 
 /* --- function prototypes --- */
 
@@ -38,7 +46,7 @@ typedef struct data {
 accepts: none
 return: pointer to GPS struct
 */
-GPS * allocate(void);
+GPSData * allocate(void);
 
 /* buildGPSstruct: builds a new GPS structure
 accepts: 
@@ -46,7 +54,7 @@ accepts:
 - latitude, longitude, altitude
 returns: none
 */
-void buildGPSstruct(GPS * data, char * latitude, char * longitude, char * altitude);
+void buildGPSstruct(GPSData * data, char * latitude, char * longitude, char * altitude);
 
 /* init: initializes the GPS sensor for use 
 accepts: none
