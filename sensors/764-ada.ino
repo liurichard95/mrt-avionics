@@ -2,10 +2,6 @@
 // include header
 #include "764-ada.h"
 
-GPSData * allocate(void){
-	return (GPSData *) malloc(sizeof(GPSData));
-}
-
 void buildGPSstruct(GPSData * data, char * latitude, char * longitude, char * altitude){
 	data->latitude = latitude;
 	data->longitude = longitude;
@@ -17,11 +13,9 @@ GPSData * getGPSData() {
 }
 
 void initGPS(void){
-
 	GPSData * data = new GPSData();
 	buildGPSstruct(data, "asdf", "dasf", "dfs");
-
-
+	
 
 	Serial.begin(115200);
 	ss.begin(GPSBaud);

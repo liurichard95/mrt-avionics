@@ -42,12 +42,6 @@ typedef struct data {
 
 /* --- function prototypes --- */
 
-/* allocate: create space in memory for a new GPS struct
-accepts: none
-return: pointer to GPS struct
-*/
-GPSData * allocate(void);
-
 /* buildGPSstruct: builds a new GPS structure
 accepts: 
 - data: pointer to GPS structure [NOTE: must already be allocated by calling allocate()]
