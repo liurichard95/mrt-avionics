@@ -22,10 +22,6 @@ void initGPS(void){
 
   	Serial.println(data->latitude);
 
-  	Serial.println(F("FullExample.ino"));
-  	Serial.println(F("An extensive example of many interesting TinyGPS++ features"));
-  	Serial.print(F("Testing TinyGPS++ library v. ")); Serial.println(TinyGPSPlus::libraryVersion());
-  	Serial.println(F("by Mikal Hart"));
   	Serial.println();
   	Serial.println(F("Sats HDOP Latitude   Longitude   Fix  Date       Time     Date Alt    Course Speed Card  Distance Course Card  Chars Sentences Checksum"));
   	Serial.println(F("          (deg)      (deg)       Age                      Age  (m)    --- from GPS ----  ---- to London  ----  RX    RX        Fail"));
