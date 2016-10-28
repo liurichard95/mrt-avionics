@@ -1,6 +1,13 @@
 # McGill Rocket Team - Avionics
 This is the code repository for the Avionics sub team on the McGill Rocket Team.
 
+## General Instructions
+* If you don't have access, please message me on slack and give me your username
+* Create a new branch for your sensor and push all your changes to the branch
+* If you feel like your done, then create a pull request to merge to master
+
+I'll merge to master after our team code review sessions. Timeline to be posted soon.
+
 ## Sensors
 Under the sensors folder, you'll find each sensor has it's own file. You are free to write the code for the sensor as you please and create any file you need. The only requirement is that you make a function available to produce the formatted string data from the sensors. The function will be called several times, in a polling fashion.
 
