@@ -2,37 +2,41 @@
 // include header
 #include "764-ada.h"
 
-void buildGPSstruct(GPSData * data, char * latitude, char * longitude, char * altitude){
-	data->latitude = latitude;
-	data->longitude = longitude;
-	data->altitude = altitude;
-}
 
-GPSData * getGPSData() {
-	GPSData * data = allocate();
+void buildGPSstruct(GPSData* data, float lat, float lng, float altitude, float course, float speed, unsigned short satCount){
+	data->lat = lat;
+  data->lng = lng;
+  data->altitude = altitude;
+  data->course = course;
+  data->speed = speed;
+  data->satCount = satCount;
 }
 
 void initGPS(void){
-	GPSData * data = new GPSData();
-	buildGPSstruct(data, "asdf", "dasf", "dfs");
-	
-
-	Serial.begin(115200);
-	ss.begin(GPSBaud);
-
-  	Serial.println(data->latitude);
-
-  	Serial.println();
-  	Serial.println(F("Sats HDOP Latitude   Longitude   Fix  Date       Time     Date Alt    Course Speed Card  Distance Course Card  Chars Sentences Checksum"));
-  	Serial.println(F("          (deg)      (deg)       Age                      Age  (m)    --- from GPS ----  ---- to London  ----  RX    RX        Fail"));
-  	Serial.println(F("---------------------------------------------------------------------------------------------------------------------------------------"));
-
-
+  Serial.begin(115200);
+  ss.begin(GPSBaud);
 }
 
-/* --- temporary setup function for testing GPS sketch individually --- */
-void setup(){
+GPSData* getData(void){
+  GPSData* data = new GPSData();
 
+  float lat = gps.location.lat();
+  float lng = gps.location.lng();
+  float altitude = gps.altitude.meters();
+  float course = gps.course.deg();
+  float speed = gps.speed.kmph();
+  unsigned short satCount = gps.satellites.value();
+
+  buildGPSstruct(data, lat, lng, altitude, course, speed, satCount);
+
+  return data;
+}
+
+
+/* --- temporary setup function for testing GPS sketch individually --- */
+
+
+void setup(){
 	initGPS();
 }
 

@@ -22,6 +22,7 @@
 #include <TinyGPS++.h>
 #include <SoftwareSerial.h>
 
+
 /* --- init variables --- */
 
 static const int RXPin = 4, TXPin = 3;
@@ -35,25 +36,34 @@ SoftwareSerial ss(RXPin, TXPin);
 
 
 typedef struct data {
-	char * latitude; 
-	char * longitude;
-	char * altitude;
+	unsigned short satCount;
+	float lat;
+	float lng;
+	float altitude;
+	float course;
+	float speed;
 } GPSData;
 
 /* --- function prototypes --- */
 
 /* buildGPSstruct: builds a new GPS structure
 accepts: 
-- data: pointer to GPS structure [NOTE: must already be allocated by calling allocate()]
+- data: pointer to GPS structure [NOTE: must already be allocated by calling allocate() {for C implementation}]
 - latitude, longitude, altitude
 returns: none
 */
-void buildGPSstruct(GPSData * data, char * latitude, char * longitude, char * altitude);
+void buildGPSstruct(GPSData* data, float lat, float lng, float altitude, float course, float speed, unsigned short satCount);
 
 /* init: initializes the GPS sensor for use 
 accepts: none
 returns: none
 */
-void init(void);
+void initGPS(void);
+
+/* getGPSData: returns a pointer to a GPSData structure holding the Rocket's current GPS information
+accepts: none
+returns: pointer to GPSData structure
+*/
+GPSData* getGPSData(void);
 
 #endif
