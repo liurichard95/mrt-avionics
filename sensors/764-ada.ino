@@ -18,8 +18,13 @@ void initGPS(void){
   ss.begin(GPSBaud);
 }
 
-GPSData* getData(void){
+GPSData* getGPSData(void){
   GPSData* data = new GPSData();
+
+  // fetch the most recent data from the GPS
+  if(ss.available()){
+    gps.encode(ss.read());
+  }
 
   float lat = gps.location.lat();
   float lng = gps.location.lng();
