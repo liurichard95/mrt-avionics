@@ -20,6 +20,17 @@ int e;
 FILE * radiologfile;
 FILE * radioerrorlogfile;
 
+void log (char * str)
+{
+	//writes to logfile
+}
+
+void log_error (char * str)
+{
+	//writes to error file
+}
+
+
 /* INITIAL CONFIGURATION OF THE TRANSMITTER
  * 
  */
@@ -61,16 +72,24 @@ char * format_packet (char type, char info1, char * msg)
 		if (len > 0) {
 			strcpy((s+4),msg);
 		}
-		return s
+		return s;
 	}		
 }
 
 void send_packet (char type, char info1, char * msg)
 {
 	char * s = format_packet (type, info1, msg);
+	if (s == NULL) return; //if string was not accepted, pass through
 	send_raw_string(s);
 	free(s);
 }
+
+void send_important_string (char * str)
+{
+	e = sx1272.sendPacketTimeoutACK(GROUND_COLLECTOR, str);
+	/* verify */
+}
+
 
 int check_sync ()
 {
