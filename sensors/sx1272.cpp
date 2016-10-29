@@ -45,3 +45,34 @@ void send_raw_string_to_dest (int dest, char * str)
 {
 	e = sx1272.sendPacketTimeout(dest, str);
 }
+
+char * format_packet (char type, char info1, char * msg)
+{
+	int len = strlen(msg);
+	if (len > MAXPACKETMSGLENGTH) {
+		log_error("tried to send packet that exceeded max. length : %s", msg);
+		return NULL;
+	} else 
+		char * s = malloc(sizeof(char) * (len+4));
+		s[0] = type;
+		s[1] = info1;
+		s[3] = 0xFF;
+		s[4] = 0xFF;
+		if (len > 0) {
+			strcpy((s+4),msg);
+		}
+		return s
+	}		
+}
+
+void send_packet (char type, char info1, char * msg)
+{
+	char * s = format_packet (type, info1, msg);
+	send_raw_string(s);
+	free(s);
+}
+
+int check_sync ()
+{
+	/* check that ground returns ACK */
+}
