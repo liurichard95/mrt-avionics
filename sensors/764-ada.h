@@ -3,7 +3,7 @@
  Header file for Adafruit Ultimate GPS Breakout (764-ada)
  
  Required Libraries:
- 	Adafruit_GPS: github.com/adafruit/Adafruit_GPS
+ 	TinyGPS++: https://github.com/mikalhart/TinyGPSPlus
 
  Description:
  	764-ada.ino initially establishes a Serial connection with the GPS module. Following this
@@ -13,8 +13,8 @@
 
 
 /* -- guard -- */
-#ifndef gps_h
-#define gps_h
+#ifndef 746-ADA_H
+#define 746-ADA_H
 
 /* --- includes --- */
 #include <stdio.h>

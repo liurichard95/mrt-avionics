@@ -1,46 +1,33 @@
-
 #include <TinyGPS++.h>
 #include <SoftwareSerial.h>
-#include "764-ada.h"
+/*
+   This sample code demonstrates the normal use of a TinyGPS++ (TinyGPSPlus) object.
+   It requires the use of SoftwareSerial, and assumes that you have a
+   4800-baud serial GPS device hooked up on pins 4(rx) and 3(tx).
+*/
+static const int RXPin = 4, TXPin = 3;
+static const uint32_t GPSBaud = 4800;
 
+// The TinyGPS++ object
+TinyGPSPlus gps;
 
-void buildGPSstruct(GPSData* data, float lat, float lng, float altitude, float course, float speed, unsigned short satCount){
-	data->lat = lat;
-  data->lng = lng;
-  data->altitude = altitude;
-  data->course = course;
-  data->speed = speed;
-  data->satCount = satCount;
-}
+// The serial connection to the GPS device
+SoftwareSerial ss(RXPin, TXPin);
 
-void initGPS(void){
+void setup()
+{
   Serial.begin(115200);
   ss.begin(GPSBaud);
+
+  Serial.println(F("FullExample.ino"));
+  Serial.println(F("An extensive example of many interesting TinyGPS++ features"));
+  Serial.print(F("Testing TinyGPS++ library v. ")); Serial.println(TinyGPSPlus::libraryVersion());
+  Serial.println(F("by Mikal Hart"));
+  Serial.println();
+  Serial.println(F("Sats HDOP Latitude   Longitude   Fix  Date       Time     Date Alt    Course Speed Card  Distance Course Card  Chars Sentences Checksum"));
+  Serial.println(F("          (deg)      (deg)       Age                      Age  (m)    --- from GPS ----  ---- to London  ----  RX    RX        Fail"));
+  Serial.println(F("---------------------------------------------------------------------------------------------------------------------------------------"));
 }
-
-GPSData* getData(void){
-  GPSData* data = new GPSData();
-
-  float lat = gps.location.lat();
-  float lng = gps.location.lng();
-  float altitude = gps.altitude.meters();
-  float course = gps.course.deg();
-  float speed = gps.speed.kmph();
-  unsigned short satCount = gps.satellites.value();
-
-  buildGPSstruct(data, lat, lng, altitude, course, speed, satCount);
-
-  return data;
-}
-
-
-/* --- temporary setup function for testing GPS sketch individually --- */
-
-
-void setup(){
-	initGPS();
-}
-
 
 void loop()
 {
@@ -170,6 +157,3 @@ static void printStr(const char *str, int len)
     Serial.print(i<slen ? str[i] : ' ');
   smartDelay(0);
 }
-
-
-
