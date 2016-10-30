@@ -13,8 +13,8 @@
 
 
 /* -- guard -- */
-#ifndef 746-ADA_H
-#define 746-ADA_H
+#ifndef GPS_H
+#define GPS_H
 
 /* --- includes --- */
 #include <stdio.h>
