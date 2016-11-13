@@ -9,6 +9,7 @@
 #include <string>
 #include <stdint.h>
 #include <vector>
+#include <queue>
 
 //Include the packages necessary for the SX1272
 #include <Wire.h>
@@ -31,7 +32,9 @@ vector<uint8_t> create_vector_from_string(string str)
 	return v;
 }
 
-//packeting subsystem
+/*
+ * PACKETING SUBSYSTEM
+*/
 
 struct packet {
 	uint8_t type;
@@ -56,7 +59,7 @@ struct packet initialize_packet(uint8_t type, uint8_t port, uint8_t sys, uint8_t
 	pack.info = info;
 	pack.payload = payload;
 	pack.continuity = 0xFF; //not implemented right now
-  return pack;
+	return pack;
 }
 
 //creates a C++ byte vector that will be sent to the transmitter
@@ -78,15 +81,94 @@ vector<uint8_t> format_packet(struct packet p)
 	return repr;
 }
 
-//manages the packets to be sent - two queues: one basic (the one first implemented) the other priority (with ACK?)
+/*
+ * MANAGES THE PACKETS TO BE SEND
+ * two queues: one basic (the one first implemented) the other priority (with ACK?)
+*/
+
+queue<vector<uint8_t>> pqueue;
+
+void send_packet()
+{
+	//code to send the packet
+	//NEED TO REPURPOSE THE LIBRARY TO SEND VECTORS...
+}
+
+void packet_enqueue(vector<uint8_t> v)
+{
+	pqueue.push_back(v);
+	
+}
+
+vector<uint8_t> packet_dequeue()
+{
+	return pqueue.pop_front();
+}
+
+/*
+ * FUNCTIONS FOR THIS MODULE TO INTERFACE WITH THE RADIO
+*/
+
+//initialises the radio
+int radio_init()
+{
+
+}
+
+//checks the status of the radio
+int radio_check()
+{
+
+}
+
+//checks if the FIFO is empty
+int radio_FIFO_status()
+{
+
+}
+
+void radio_tx_vector(vector<uint8_t> vec)
+{
+
+}
+
+void radio_tx_string(string str)
+{
+
+}
+
+/*
+ * FUNCTIONS FOR THE OUTSIDE WORLD TO INTERFACE WITH THE RADIO
+ */
+
+int radio_cycle()
+{
+	//check if FIFO is empty
+	//if it is, check if there are packets in the queue
+	//if there are, tx one and yield
+	return 0;
+}
+
+//the "main" function, used by the outside world to register their byte vectors and place them on the queue.
+//it does not specify length
+int radio_send_vector(uint8_t port, uint8_t sys, uint8_t info, vector<uint8_t> payload)
+{
+	uint8_t len = payload.size();
+	//do something here if it is too long...
+	struct packet p = initialize_packet((uint8_t) 'P', port, sys, len, 0, info, payload);
+	packet_enqueue(format_packet(p));
+	return 1; //SUCCESS
+}
+
 
 
 void setup() {
-	Serial.begin(9600);
+	Serial.begin(115200);
 	Serial.println("hello, test");
 	string test("hello this is a string containing null : \0. If you see this, then it skips the null, hyrray!",100);
 	Serial.print("String is of size ");
 	Serial.println(test.length());
+	  int a = millis();
 	vector<uint8_t> v = create_vector_from_string(test);
 	Serial.print("Length of vector is ");
 	Serial.println(v.size());
@@ -94,6 +176,7 @@ void setup() {
 	pack = initialize_packet(1, 2, 1, test.length(), 0, 0, v);
 	Serial.println("Packet initialized!");
 	vector<uint8_t> p= format_packet(pack);
+	  Serial.println(millis()-a);
 	for (int i=0; i<p.size(); i++) {
 		Serial.print((char) p[i]);
 	}
